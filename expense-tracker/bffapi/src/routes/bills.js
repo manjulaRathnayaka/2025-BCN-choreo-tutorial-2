@@ -14,6 +14,12 @@ billsRouter.get('/', async (req, res) => {
     res.json(response.data);
   } catch (error) {
     console.error('Error fetching bills:', error.message);
+    console.error('Environment variables:', {
+      NODE_ENV: process.env.NODE_ENV,
+      ACCOUNTS_SERVICE_URL: process.env.ACCOUNTS_SERVICE_URL,
+      RECEIPT_SERVICE_URL: process.env.CHOREO_RECEIPTS_SERVICEURL,
+      PORT: process.env.PORT
+    });
     res.status(error.response?.status || 500).json(
       error.response?.data || { error: 'Failed to fetch bills' }
     );
@@ -28,6 +34,11 @@ billsRouter.get('/:id', async (req, res) => {
     res.json(response.data);
   } catch (error) {
     console.error(`Error fetching bill ${req.params.id}:`, error.message);
+    console.error('Environment variables:', {
+      NODE_ENV: process.env.NODE_ENV,
+      ACCOUNTS_SERVICE_URL: process.env.CHOREO_ACCOUNTS_SERVICEURL,
+      RECEIPT_SERVICE_URL: process.env.CHOREO_RECEIPTS_SERVICEURL,
+    });
     res.status(error.response?.status || 500).json(
       error.response?.data || { error: 'Failed to fetch bill' }
     );
